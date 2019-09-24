@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
+using StatsAPI.DAL;
+using StatsAPI.Models;
 
 namespace StatsAPI.Controllers
 {
@@ -11,6 +14,8 @@ namespace StatsAPI.Controllers
     [ApiController]
     public class StatsController : ControllerBase
     {
+        private readonly UserDAL userDAL = new UserDAL();
+
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -28,12 +33,32 @@ namespace StatsAPI.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{option}")]
+        public IActionResult Put(string option, [FromBody] User user)
         {
+            var userKudos = userDAL.ObtenerUsuario(user.UserID);
+            int totalKudos = userKudos.TotalKudos;
+
+            if (option == "add")
+            {
+                totalKudos++;
+            }
+            else
+            {
+                totalKudos--;
+            }
+
+            bool resultado = userDAL.UpdateUserKudos(user.UserID, totalKudos);
+
+            if (!resultado)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         // DELETE api/values/5

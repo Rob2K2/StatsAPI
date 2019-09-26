@@ -14,7 +14,5 @@ namespace StatsAPI.Models
         public string LastName { get; set; }
 
         public string NickName { get; set; }
-
-        public int TotalKudos { get; set; }
     }
 }

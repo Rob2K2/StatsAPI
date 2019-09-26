@@ -40,7 +40,7 @@ namespace StatsAPI.Controllers
         public IActionResult Put(string option, [FromBody] User user)
         {
             var userKudos = userDAL.ObtenerUsuario(user.UserID);
-            int totalKudos = userKudos.TotalKudos;
+            int totalKudos = 9;
 
             if (option == "add")
             {

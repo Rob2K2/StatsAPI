@@ -61,7 +61,7 @@ namespace StatsAPI.DAL
                             user.FirstName = dr["firstname"].ToString();
                             user.LastName = dr["lastname"].ToString();
                             user.NickName = dr["nickname"].ToString();
-                            user.TotalKudos = Convert.ToInt32(dr["totalkudos"]);
+                            //user.TotalKudos = Convert.ToInt32(dr["totalkudos"]);
                         }
                     }
                 }
